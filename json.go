@@ -38,12 +38,16 @@ func ReadConfig() Configs {
 	defer f.Close()
 	if ferr != nil {
 		log.Printf("[Error] Error when reading config > %s", ferr.Error())
+		time.Sleep(10 * time.Second)
+		os.Exit(1)
 	}
 	config_bytes, _ := ioutil.ReadAll(f)
 	var con Configs
 	jerr := json.Unmarshal(config_bytes, &con)
 	if jerr != nil {
 		log.Printf("[Error] Something wrong with config_json > %s", jerr.Error())
+		time.Sleep(10 * time.Second)
+		os.Exit(1)
 	}
 	return con
 }
